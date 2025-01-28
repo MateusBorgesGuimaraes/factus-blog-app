@@ -1,0 +1,8 @@
+.heroContainer {
+  height: calc(100vh - 1rem);
+  width: 100%;
+  background-image: url('/images/home.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+}
