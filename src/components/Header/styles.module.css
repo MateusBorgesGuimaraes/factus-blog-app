@@ -3,12 +3,16 @@
   width: 100%;
   margin-top: 8px;
   position: fixed;
+  z-index: 9999;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .searchBarContainer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 400px;
   height: 40px;
   display: flex;
