@@ -16,7 +16,7 @@
 }
 
 .titleContainer h1 {
-  font-size: 96px;
+  font-size: 128px;
   font-weight: 500;
   line-height: 1.1;
   margin-bottom: 1rem;
@@ -91,6 +91,63 @@
   text-wrap: balance;
 }
 
-/* .descriptionContainer p {
-  
-} */
+@media (width < 1920px) {
+  .randomCuriosity p:nth-child(1) {
+    display: none;
+  }
+  .randomCuriosity p:nth-child(7) {
+    display: none;
+  }
+}
+
+@media (width < 1640px) {
+  .randomCuriosity p:nth-child(2) {
+    position: absolute;
+    top: 200px;
+    left: 100px;
+  }
+
+  .randomCuriosity p:nth-child(3) {
+    position: absolute;
+    top: 400px;
+    left: 0;
+  }
+
+  .randomCuriosity p:nth-child(4) {
+    position: absolute;
+    bottom: 80px;
+    left: 100px;
+  }
+
+  .randomCuriosity p:nth-child(6) {
+    display: none;
+  }
+
+  .titleContainer h1 {
+    font-size: 96px;
+  }
+
+  .descriptionContainer {
+    max-width: 400px;
+    font-size: 16px;
+    text-wrap: balance;
+  }
+}
+
+@media (width < 1400px) {
+  .randomCuriosity p:nth-child(2) {
+    display: none;
+  }
+
+  .randomCuriosity p:nth-child(3) {
+    display: none;
+  }
+
+  .randomCuriosity p:nth-child(4) {
+    display: none;
+  }
+
+  .randomCuriosity p:nth-child(5) {
+    display: none;
+  }
+}

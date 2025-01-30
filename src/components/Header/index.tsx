@@ -1,17 +1,13 @@
 import Image from 'next/image';
 import styles from './styles.module.css';
 import Link from 'next/link';
+import { LogoGreen } from '@/utils/icons-components/logo-green';
 export const Header = () => {
   return (
     <header className={`${styles.headerContainer}`}>
-      <div>
+      <div className={styles.logoContainer}>
         <Link href={'/'}>
-          <Image
-            src={'/icons/green-logo-icon.svg'}
-            alt="logo"
-            width={100}
-            height={35}
-          />
+          <LogoGreen />
         </Link>
       </div>
 

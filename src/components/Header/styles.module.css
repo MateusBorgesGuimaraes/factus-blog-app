@@ -9,6 +9,14 @@
   align-items: center;
 }
 
+.logoContainer svg path {
+  transition: all 0.2s ease-in-out;
+}
+
+.logoContainer:hover svg path {
+  fill: var(--color-green-primary2);
+}
+
 .searchBarContainer {
   position: absolute;
   left: 50%;
