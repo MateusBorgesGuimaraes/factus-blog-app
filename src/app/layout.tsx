@@ -48,9 +48,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${lexend.variable} ${clashGrotesk.variable} container`}>
-        <div className="subContainer">
-          <Header />
-        </div>
+        <Header />
         {children}
       </body>
     </html>

@@ -151,3 +151,43 @@
     display: none;
   }
 }
+
+@media (width < 1000px) {
+  .content {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .randomCuriosity {
+    display: none;
+  }
+
+  .descriptionContainer {
+    grid-column: -1;
+  }
+}
+
+@media (width < 600px) {
+  .titleContainer h1 {
+    font-size: 72px;
+  }
+}
+
+@media (width < 500px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .descriptionContainer {
+    display: none;
+  }
+
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

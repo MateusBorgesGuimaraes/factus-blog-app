@@ -1,12 +1,19 @@
 .headerContainer {
-  max-width: 1820px;
+  /* background: red; */
   width: 100%;
+  max-width: 1820px;
+  left: 50%;
+  transform: translateX(-50%);
   margin-top: 8px;
   position: fixed;
   z-index: 9999;
+}
+
+.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-inline: 1rem;
 }
 
 .logoContainer svg path {
@@ -21,7 +28,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 400px;
+  width: 30%;
   height: 40px;
   display: flex;
   justify-content: center;
