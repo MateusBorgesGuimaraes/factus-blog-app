@@ -27,8 +27,12 @@ a {
   font-family: var(--font-secondary);
 }
 
+html {
+  position: relative;
+}
+
 body {
-  background-color: var(--color-gray-100);
+  background-color: var(--color-gray-50);
 }
 
 .container {
@@ -41,4 +45,10 @@ body {
   max-width: 1820px;
   margin: 0 auto;
   padding-inline: 8px;
+}
+
+.homeStyles {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }

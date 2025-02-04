@@ -1,11 +1,11 @@
-import { Hero } from '@/components/Home/Hero';
+import { Hero } from '@/components/pages/Home/Hero';
+import { PostsSection } from '@/components/pages/Home/Posts';
 
 export default function Home() {
   return (
-    <section>
-      <div>
-        <Hero />
-      </div>
+    <section className="homeStyles">
+      <Hero />
+      <PostsSection />
     </section>
   );
 }
