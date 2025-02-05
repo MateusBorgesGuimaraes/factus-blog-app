@@ -3,6 +3,7 @@ import { Lexend } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const lexend = Lexend({
   variable: '--font-lexend',
@@ -50,6 +51,7 @@ export default function RootLayout({
       <body className={`${lexend.variable} ${clashGrotesk.variable} container`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

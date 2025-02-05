@@ -1,0 +1,122 @@
+.gallery {
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 16px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+
+.image {
+  transition: transform 0.3s ease;
+}
+
+.imageWrapper:hover .image {
+  transform: scale(1.1);
+}
+
+.imageWrapper:nth-child(4) {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.imageWrapper:nth-child(2) {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.imageWrapper:nth-child(3) {
+  grid-area: 1 / 3 / 2 / 4;
+}
+.imageWrapper:nth-child(5) {
+  grid-area: 1 / 4 / 3 / 5;
+  height: 100%;
+}
+.imageWrapper:nth-child(6) {
+  grid-area: 2 / 1 / 3 / 3;
+}
+.imageWrapper:nth-child(1) {
+  grid-area: 2 / 3 / 3 / 4;
+}
+
+@media (width< 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .imageWrapper:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .imageWrapper:nth-child(2) {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  .imageWrapper:nth-child(3) {
+    grid-area: 1 / 3 / 2 / 4;
+  }
+  .imageWrapper:nth-child(4) {
+    grid-area: 2 / 3 / 3 / 4;
+  }
+  .imageWrapper:nth-child(5) {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  .imageWrapper:nth-child(6) {
+    grid-area: 2 / 3 / 3 / 4;
+  }
+}
+
+@media (width< 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .imageWrapper:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .imageWrapper:nth-child(2) {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  .imageWrapper:nth-child(3) {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+  .imageWrapper:nth-child(4) {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+  .imageWrapper:nth-child(5) {
+    grid-area: 3 / 1 / 4 / 3;
+    display: none;
+  }
+  .imageWrapper:nth-child(6) {
+    display: none;
+    grid-area: 4 / 1 / 5 / 3;
+  }
+}
+
+@media (width < 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto);
+  }
+  .imageWrapper:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .imageWrapper:nth-child(2) {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+  .imageWrapper:nth-child(3) {
+    grid-area: 3 / 1 / 4 / 2;
+  }
+  .imageWrapper:nth-child(4) {
+    grid-area: 4 / 1 / 5 / 2;
+  }
+  .imageWrapper:nth-child(5) {
+    grid-area: 5 / 1 / 6 / 2;
+  }
+  .imageWrapper:nth-child(6) {
+    display: block;
+    grid-area: 4 / 1 / 5 / 2;
+  }
+}

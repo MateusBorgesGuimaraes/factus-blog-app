@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import React, { useEffect, useState } from 'react';
 import { Filter } from '@/components/Filter';
 import { Post } from '@/components/post';
+import { Pagination } from '@/components/Pagination';
 
 interface Post {
   id: number;
@@ -116,6 +117,8 @@ export const PostsSection = () => {
           <Post.Author />
         </Post>
       </div>
+
+      <Pagination actualPage={1} totalPages={10} handlePageChange={() => {}} />
     </section>
   );
 };
