@@ -24,7 +24,6 @@
 .firstColumn {
   display: flex;
   gap: 108px;
-  /* justify-content: space-between; */
 }
 
 .firstColumn div h4 {

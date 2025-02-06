@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import style from './styles.module.css';
 
-export const Profile = () => {
+interface ProfileProps {
+  color?: string;
+}
+
+export const Profile = ({ color = '#000' }: ProfileProps) => {
   return (
     <div className={style.profileContainer}>
       <div className={style.profileImage}>
@@ -12,7 +16,9 @@ export const Profile = () => {
           height={40}
         />
       </div>
-      <h3 className={style.profileName}>Amanda Barreto</h3>
+      <h3 className={style.profileName} style={{ color: color }}>
+        Amanda Barreto
+      </h3>
     </div>
   );
 };

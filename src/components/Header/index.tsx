@@ -8,17 +8,27 @@ import React from 'react';
 import { LogoRed } from '@/utils/icons-components/logo-red';
 import { usePathname } from 'next/navigation';
 import { MobileMenu } from '@/utils/icons-components/mobile-menu';
+import { Profile } from '../Profile';
+import { ArrowDownGreen } from '@/utils/icons-components/arrow-down-green';
 export const Header = () => {
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
+  const [openUserMenu, setOpenUserMenu] = React.useState(false);
+  const [currentRoute, setCurrentRoute] = React.useState('');
+  const user = false;
   const pathname = usePathname();
 
   React.useEffect(() => {
     setIsHome(pathname === '/');
+    setCurrentRoute(pathname);
   }, [pathname]);
 
   const toggleMenu = () => {
     setActive(!active);
+  };
+
+  const toggleUserMenu = () => {
+    setOpenUserMenu(!openUserMenu);
   };
 
   return (
@@ -46,43 +56,95 @@ export const Header = () => {
           </button>
         </div>
 
-        <div>
-          <button
-            onClick={toggleMenu}
-            className={`${styles.menuButton} ${
-              isHome ? '' : styles.reverseMenuButton
-            }`}
-          >
-            <MobileMenu />
-          </button>
-
-          <div
-            className={`${styles.mobileMenu} ${active ? styles.active : ''}`}
-          >
-            <Link href={'/entrar'}>Entrar</Link>
-            <Link href={'/cadastrar'}>Cadastrar</Link>
-            <div className={styles.searchBarContainerMobile}>
-              <input type="text" placeholder="buscar post..." />
-              <button>
-                <Image
-                  src={'/icons/search-white-icon.svg'}
-                  alt="logo"
-                  width={20}
-                  height={20}
-                />
+        {!user ? (
+          <>
+            <div>
+              <button
+                onClick={toggleMenu}
+                className={`${styles.menuButton} ${
+                  isHome ? '' : styles.reverseMenuButton
+                }`}
+              >
+                <MobileMenu />
               </button>
-            </div>
-          </div>
-        </div>
 
-        <div
-          className={`${styles.linksContainer} ${
-            isHome ? '' : styles.reverseLinks
-          }`}
-        >
-          <Link href={'/entrar'}>Entrar</Link>
-          <Link href={'/cadastrar'}>Cadastrar</Link>
-        </div>
+              <div
+                className={`${styles.mobileMenu} ${
+                  active ? styles.active : ''
+                }`}
+              >
+                <Link href={'/entrar'}>Entrar</Link>
+                <Link href={'/cadastrar'}>Cadastrar</Link>
+                <div className={styles.searchBarContainerMobile}>
+                  <input type="text" placeholder="buscar post..." />
+                  <button>
+                    <Image
+                      src={'/icons/search-white-icon.svg'}
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={`${styles.linksContainer} ${
+                isHome ? '' : styles.reverseLinks
+              }`}
+            >
+              <Link href={'/entrar'}>Entrar</Link>
+              <Link href={'/cadastrar'}>Cadastrar</Link>
+            </div>
+          </>
+        ) : (
+          <div className={styles.profileContainer}>
+            <button
+              onClick={toggleUserMenu}
+              className={`${styles.profileButton} ${
+                openUserMenu && styles.active
+              }`}
+            >
+              <Profile color="#fff" />
+              <ArrowDownGreen />
+            </button>
+
+            {openUserMenu && (
+              <div className={styles.userMenu}>
+                <Link
+                  className={`${currentRoute === '/profile' && styles.active}`}
+                  href={'/profile'}
+                >
+                  Perfil <span></span>
+                </Link>
+                <Link
+                  className={`${
+                    currentRoute === '/saved-posts' && styles.active
+                  }`}
+                  href={'/saved-posts'}
+                >
+                  Posts salvos <span></span>
+                </Link>
+
+                <div className={styles.searchBarContainerUserProfile}>
+                  <input type="text" placeholder="buscar post..." />
+                  <button className={styles.searchButtonUserMenu}>
+                    <Image
+                      src={'/icons/search-white-icon.svg'}
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                </div>
+                <button className={styles.logout}>
+                  Sair <span></span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );
