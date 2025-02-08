@@ -21,6 +21,15 @@
   font-family: var(--font-primary);
 }
 
+p,
+h1,
+h2,
+h3,
+a,
+button {
+  margin: 0px;
+}
+
 a {
   color: inherit;
   text-decoration: none;

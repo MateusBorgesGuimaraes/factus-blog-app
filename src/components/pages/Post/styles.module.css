@@ -1,0 +1,88 @@
+.postContainer {
+  margin-top: 60px;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+}
+
+.postImage {
+  width: 100%;
+  height: 640px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.postImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.post {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 8px;
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 32px;
+}
+
+.guide {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.guide p {
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-gray-300);
+}
+
+.postTitle {
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 40px;
+  color: var(--color-red-primary);
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.col2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.favorite {
+  align-self: flex-end;
+  justify-self: flex-end;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.favorite:hover {
+  scale: 1.1;
+}
+
+.relatedPostsContainer {
+  margin-top: 72px;
+}
+
+.subTitle {
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 32px;
+  color: var(--color-gray-400);
+  margin-bottom: 12px;
+}
+
+.relatedPosts {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}

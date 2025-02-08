@@ -104,6 +104,11 @@
   font-weight: 500;
   color: var(--color-gray-500);
   font-family: var(--clashGrotesk);
+  transition: all 0.2s ease-in-out;
+}
+
+.title:hover {
+  color: var(--color-gray-300);
 }
 
 .description {
