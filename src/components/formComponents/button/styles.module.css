@@ -1,0 +1,22 @@
+.button {
+  border: none;
+  cursor: pointer;
+  background: var(--color-red-primary);
+  border-radius: 4px;
+  width: 100%;
+  padding: 7px 16px;
+  font-size: 36px;
+  font-family: var(--clashGrotesk);
+  color: var(--color-white);
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background: var(--color-red-primary2);
+}
+
+@media (width < 480px) {
+  .button {
+    font-size: 28px;
+  }
+}

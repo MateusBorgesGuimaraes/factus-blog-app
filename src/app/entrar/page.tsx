@@ -1,3 +1,9 @@
+import { Entrar } from '@/components/pages/entrar';
+
 export default function EntrarPage() {
-  return <div></div>;
+  return (
+    <section>
+      <Entrar />
+    </section>
+  );
 }

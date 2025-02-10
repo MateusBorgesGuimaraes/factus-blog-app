@@ -1,0 +1,88 @@
+.cadastrarContainer {
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0 8px;
+}
+
+.titleContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.titleContainer h1 {
+  font-family: var(--clashGrotesk);
+  font-weight: 500;
+  font-size: 64px;
+  color: var(--color-gray-400);
+}
+
+.titleContainer p {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-gray-300);
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.buttonContainer {
+  width: 100%;
+  margin-top: 24px;
+  max-width: 600px;
+}
+
+.imageContainer {
+  width: 200px;
+}
+
+.haveAccount {
+  color: var(--color-gray-300);
+  margin: 0px;
+  padding: 0px;
+}
+
+.haveAccount a {
+  color: var(--color-green-primary2);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+@media (width < 1200px) {
+  .titleContainer h1 {
+    font-size: 48px;
+  }
+
+  .titleContainer p {
+    max-width: 500px;
+  }
+}
+
+@media (width < 480px) {
+  .titleContainer h1 {
+    font-size: 32px;
+  }
+
+  .titleContainer p {
+    font-size: 14px;
+  }
+
+  .formContainer {
+    gap: 8px;
+  }
+
+  .buttonContainer {
+    margin-top: 16px;
+  }
+}

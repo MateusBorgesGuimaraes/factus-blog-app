@@ -6,7 +6,7 @@
 
 .postImage {
   width: 100%;
-  height: 640px;
+  height: 65vh;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -56,7 +56,8 @@
   flex-direction: column;
 }
 
-.favorite {
+.favorite,
+.favorite2 {
   align-self: flex-end;
   justify-self: flex-end;
   background: none;
@@ -65,8 +66,13 @@
   transition: all 0.2s ease-in-out;
 }
 
-.favorite:hover {
+.favorite:hover,
+.favorite2:hover {
   scale: 1.1;
+}
+
+.favorite2 {
+  display: none;
 }
 
 .relatedPostsContainer {
@@ -85,4 +91,52 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+@media (width < 1400px) {
+  .post {
+    grid-template-columns: 1fr 300px;
+  }
+}
+
+@media (width < 1200px) {
+  .post {
+    grid-template-columns: 1fr;
+  }
+
+  .favorite {
+    display: none;
+  }
+
+  .guideContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .favorite2 {
+    display: block;
+  }
+
+  .relatedPosts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (width < 600px) {
+  .post {
+    gap: 16px;
+  }
+
+  .postImage {
+    height: 40vh;
+  }
+
+  .postTitle {
+    font-size: 24px;
+    text-wrap: balance;
+    margin-bottom: 1rem;
+  }
 }

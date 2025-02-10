@@ -21,17 +21,27 @@ export const PostContentPage = () => {
 
       <div className={styles.post}>
         <div className={styles.col1}>
-          <div className={styles.guide}>
-            <p>Inicio</p>
-            <span>
+          <div className={styles.guideContainer}>
+            <div className={styles.guide}>
+              <p>Inicio</p>
+              <span>
+                <Image
+                  src="/icons/pages-arrow-icon.svg"
+                  alt=""
+                  width={12}
+                  height={12}
+                />
+              </span>
+              <p>Ciência</p>
+            </div>
+            <button className={styles.favorite2}>
               <Image
-                src="/icons/pages-arrow-icon.svg"
+                src="/icons/favorite-post-icon.svg"
                 alt=""
-                width={12}
-                height={12}
+                width={32}
+                height={32}
               />
-            </span>
-            <p>Ciência</p>
+            </button>
           </div>
           <div className={styles.postInfos}>
             <h1 className={styles.postTitle}>
