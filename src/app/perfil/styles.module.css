@@ -1,0 +1,162 @@
+.perfilContainer {
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+}
+
+.perfilBox {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    var(--color-red-primary) 0%,
+    var(--color-gray-400) 100%
+  );
+  border-radius: 12px;
+  height: 40vh;
+}
+
+.perfilImage {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+  bottom: -40%;
+  left: 32px;
+}
+
+.perfilImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.perfilInfos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.perfilInfos h1 {
+  padding-left: 300px;
+  font-size: 48px;
+  font-weight: 500;
+  font-family: var(--clashGrotesk);
+  color: var(--color-red-primary);
+  margin: 0px;
+}
+
+.perfilLinks {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0px;
+}
+
+.perfilLinks li button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
+
+.perfilLinks li {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-gray-100);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.perfilLinks li:hover {
+  background: var(--color-gray-200);
+}
+
+.perfilLinks li.active {
+  background: var(--color-gray-200);
+}
+
+@media (width < 1060px) {
+  .perfilBox {
+    height: 30vh;
+  }
+  .perfilImage {
+    width: 200px;
+    height: 200px;
+  }
+  .perfilInfos {
+    margin-top: 16px;
+  }
+  .perfilInfos h1 {
+    font-size: 32px;
+    padding-left: 220px;
+  }
+
+  .perfilLinks li {
+    width: 32px;
+    height: 32px;
+  }
+
+  .perfilLinks li img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (width < 800px) {
+  .perfilBox {
+    height: 25vh;
+  }
+  .perfilImage {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    translate: 0 -50%;
+    left: 52px;
+  }
+
+  .perfilInfos {
+    margin-top: 6px;
+  }
+
+  .perfilInfos h1 {
+    padding-left: 0px;
+  }
+}
+@media (width < 600px) {
+  .perfilInfos {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .perfilLinks {
+    margin-top: 12px;
+    padding: 0;
+  }
+}
+
+@media (width < 400px) {
+  .perfilBox {
+    background: none;
+  }
+
+  .perfilImage {
+    border: 1px solid var(--color-gray-200);
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .perfilInfos {
+    align-items: center;
+  }
+}

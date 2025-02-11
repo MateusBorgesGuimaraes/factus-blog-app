@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './styles.module.css';
+import Link from 'next/link';
 
 export const Footer = () => {
   return (
@@ -40,10 +41,24 @@ export const Footer = () => {
           />
         </div>
       </div>
-      <p className={styles.copyright}>
-        &copy; {new Date().getFullYear()} Equipe Factus. Todos os direitos
-        reservados
-      </p>
+      <div className={styles.lastRow}>
+        <p className={styles.copyright}>
+          &copy; {new Date().getFullYear()} Equipe Factus. Todos os direitos
+          reservados
+        </p>
+
+        <ul>
+          <li>
+            <Link href={'/'}>Instagram</Link>
+          </li>
+          <li>
+            <Link href={'/'}>Facebook</Link>
+          </li>
+          <li>
+            <Link href={'/'}>Linkedin</Link>
+          </li>
+        </ul>
+      </div>
     </footer>
   );
 };

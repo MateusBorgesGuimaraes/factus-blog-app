@@ -10,12 +10,13 @@ import { usePathname } from 'next/navigation';
 import { MobileMenu } from '@/utils/icons-components/mobile-menu';
 import { Profile } from '../Profile';
 import { ArrowDownGreen } from '@/utils/icons-components/arrow-down-green';
+import { ArrowDownRed } from '@/utils/icons-components/arrow-down-red';
 export const Header = () => {
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
   const [openUserMenu, setOpenUserMenu] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState('');
-  const user = false;
+  const user = true;
   const pathname = usePathname();
 
   React.useEffect(() => {
@@ -106,25 +107,26 @@ export const Header = () => {
                 openUserMenu && styles.active
               }`}
             >
-              <Profile color="#fff" />
-              <ArrowDownGreen />
+              {pathname !== '/' ? (
+                <>
+                  <Profile color="#000" />
+                  <ArrowDownRed />
+                </>
+              ) : (
+                <>
+                  <Profile color="#fff" />
+                  <ArrowDownGreen />
+                </>
+              )}
             </button>
 
             {openUserMenu && (
               <div className={styles.userMenu}>
                 <Link
-                  className={`${currentRoute === '/profile' && styles.active}`}
-                  href={'/profile'}
+                  className={`${currentRoute === '/perfil' && styles.active}`}
+                  href={'/perfil'}
                 >
                   Perfil <span></span>
-                </Link>
-                <Link
-                  className={`${
-                    currentRoute === '/saved-posts' && styles.active
-                  }`}
-                  href={'/saved-posts'}
-                >
-                  Posts salvos <span></span>
                 </Link>
 
                 <div className={styles.searchBarContainerUserProfile}>

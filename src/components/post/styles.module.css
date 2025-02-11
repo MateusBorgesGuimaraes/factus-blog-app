@@ -43,7 +43,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.delete {
+.edit {
   top: 56px;
   right: 8px;
 }
