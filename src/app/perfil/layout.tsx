@@ -47,8 +47,8 @@ export default function PerfilLayout({
               />
             </Link>
           </li>
-          <li className={path === '/criar-post' ? styles.active : ''}>
-            <Link href={'/criar-post'}>
+          <li className={path === '/perfil/criar-post' ? styles.active : ''}>
+            <Link href={'/perfil/criar-post'}>
               <Image
                 src="/icons/add-post-icon.svg"
                 alt=""

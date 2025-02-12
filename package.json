@@ -9,12 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/code": "^2.9.3",
+    "@editorjs/editorjs": "^2.30.8",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/inline-code": "^1.5.1",
+    "@editorjs/list": "^2.0.4",
+    "@editorjs/marker": "^1.4.0",
+    "@editorjs/paragraph": "^2.11.7",
+    "@editorjs/quote": "^2.7.6",
+    "@editorjs/underline": "^1.2.1",
     "@hookform/resolvers": "^3.10.0",
     "next": "15.1.6",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
+    "react-quill": "^2.0.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

@@ -1,0 +1,46 @@
+.criarPostsContainer {
+  margin-top: 86px;
+}
+
+.title {
+  margin-bottom: 32px;
+  font-family: var(--clashGrotesk);
+  font-weight: 500;
+  font-size: 48px;
+  color: var(--color-gray-400);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.formContainer {
+  max-width: 928px;
+  margin: 0 auto;
+}
+
+.editorContainer {
+  margin-top: 32px;
+  width: 100%;
+  height: max-content;
+  padding-block: 32px;
+  border-radius: 12px;
+  border: 1px solid var(--color-gray-200);
+}
+
+.buttonContainer {
+  margin-top: 24px;
+}
+
+@media (width < 1060px) {
+  .postsSalvosContainer {
+    margin-top: 60px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}
+
+@media (width < 400px) {
+  .postsSalvosContainer {
+    margin-top: 40px;
+  }
+}
