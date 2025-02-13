@@ -38,6 +38,10 @@
   gap: 0.5rem;
 }
 
+.filterSort span {
+  white-space: nowrap;
+}
+
 .sortSelect {
   background: var(--color-gray-50);
   padding: 0.25rem 1rem;

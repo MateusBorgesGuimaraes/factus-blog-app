@@ -10,7 +10,7 @@ interface InputProps {
 }
 
 export const Input = ({ label, type, name }: InputProps) => {
-  // const { register } = useFormContext();
+  const { register } = useFormContext();
   return (
     <div className={styles.inputContainer}>
       <label className={styles.label} htmlFor={name}>
@@ -20,7 +20,7 @@ export const Input = ({ label, type, name }: InputProps) => {
         className={styles.input}
         type={type}
         id={name}
-        // {...register(name)}
+        {...register(name)}
       />
     </div>
   );

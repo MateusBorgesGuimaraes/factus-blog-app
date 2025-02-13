@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from './styles.module.css';
+import { Select } from '../formComponents/select';
 
 interface FilterProps {
   onCategoryChange: (category: string) => void;
   selectedCategory: string;
+}
+
+enum filters {
+  NEWEST = 'Mais novo',
+  OLDEST = 'Mais velho',
 }
 
 interface Category {
@@ -39,10 +45,7 @@ export const Filter = ({ onCategoryChange, selectedCategory }: FilterProps) => {
       </div>
       <div className={styles.filterSort}>
         <span>Filtrar por:</span>
-        <select className={styles.sortSelect}>
-          <option value="newest">Mais novo</option>
-          <option value="oldest">Mais antigo</option>
-        </select>
+        <Select label="opções" options={Object.values(filters)} name="filtro" />
       </div>
     </nav>
   );

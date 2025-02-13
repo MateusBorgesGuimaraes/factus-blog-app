@@ -28,42 +28,42 @@ export const ImageInput = ({
   initialValue,
 }: ImageInputProps) => {
   const [preview, setPreview] = React.useState<string | null>(null);
-  // const { register, setValue } = useFormContext();
-  // const { onChange: registerOnChange, ...registerRest } = register(name);
+  const { register, setValue } = useFormContext();
+  const { onChange: registerOnChange, ...registerRest } = register(name);
 
-  // React.useEffect(() => {
-  //   if (initialValue) {
-  //     const formattedUrl = formatLink(initialValue, 'pictures');
-  //     setPreview(formattedUrl);
-  //   }
-  // }, [initialValue]);
+  React.useEffect(() => {
+    if (initialValue) {
+      const formattedUrl = formatLink(initialValue, 'pictures');
+      setPreview(formattedUrl);
+    }
+  }, [initialValue]);
 
-  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     if (preview && !preview.includes('pictures')) {
-  //       URL.revokeObjectURL(preview);
-  //     }
-  //     const previewUrl = URL.createObjectURL(file);
-  //     setPreview(previewUrl);
-  //   }
-  // };
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (preview && !preview.includes('pictures')) {
+        URL.revokeObjectURL(preview);
+      }
+      const previewUrl = URL.createObjectURL(file);
+      setPreview(previewUrl);
+    }
+  };
 
   const handleRemoveImage = () => {
     if (preview && !preview.includes('pictures')) {
       URL.revokeObjectURL(preview);
     }
     setPreview(null);
-    // setValue(name, null, { shouldValidate: true });
+    setValue(name, null, { shouldValidate: true });
   };
 
-  // React.useEffect(() => {
-  //   return () => {
-  //     if (preview && !preview.includes('pictures')) {
-  //       URL.revokeObjectURL(preview);
-  //     }
-  //   };
-  // }, [preview]);
+  React.useEffect(() => {
+    return () => {
+      if (preview && !preview.includes('pictures')) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
 
   const containerStyle = {
     width,
@@ -86,8 +86,8 @@ export const ImageInput = ({
           type="file"
           accept={accept}
           className={styles.fileInput}
-          // onChange={handleImageChange}
-          // {...registerRest}
+          onChange={handleImageChange}
+          {...registerRest}
         />
 
         {preview ? (
@@ -105,10 +105,10 @@ export const ImageInput = ({
               className={styles.removeButton}
             >
               <Image
-                src="/icons/remove-image.svg"
+                src="/icons/exclude-post-icon.svg"
                 alt="Remover"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
               />
             </button>
           </div>

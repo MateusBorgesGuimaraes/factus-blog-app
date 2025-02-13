@@ -22,6 +22,8 @@ export default function Editor() {
     if (!editorRef.current && document.getElementById(elementId)) {
       editorRef.current = new EditorJS({
         holder: elementId,
+        placeholder: 'Escreva aqui...',
+
         tools: {
           header: {
             class: Header as unknown as ToolConstructable,

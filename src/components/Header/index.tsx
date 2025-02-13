@@ -16,7 +16,7 @@ export const Header = () => {
   const [isHome, setIsHome] = React.useState(true);
   const [openUserMenu, setOpenUserMenu] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState('');
-  const user = true;
+  const user = false;
   const pathname = usePathname();
 
   React.useEffect(() => {

@@ -7,7 +7,7 @@ interface ButtonProps {
 
 export const Button = ({ children, borderRadius }: ButtonProps) => {
   return (
-    <button style={{ borderRadius }} className={styles.button}>
+    <button style={{ borderRadius }} type="submit" className={styles.button}>
       {children}
     </button>
   );

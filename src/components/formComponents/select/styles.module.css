@@ -1,0 +1,16 @@
+.select {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 0.5px solid var(--color-gray-200);
+  background: var(--color-gray-100);
+  font-size: 16px;
+  color: var(--color-gray-400);
+}
+
+.select option {
+  color: var(--color-gray-400);
+  background: var(--color-gray-100);
+}
