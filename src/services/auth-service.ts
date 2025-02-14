@@ -1,14 +1,26 @@
 import { AxiosError } from 'axios';
 import api from './api';
-import { CookieService } from '../utils/cookie-service';
 import { LoginCredentials, UserResponse } from '../types/auth';
 import { ApiError } from '@/types/api';
 
 export class AuthService {
-  static async login(credentials: LoginCredentials): Promise<UserResponse> {
+  static async login(
+    credentials: LoginCredentials,
+  ): Promise<Omit<UserResponse, 'accessToken'>> {
     try {
       const response = await api.post<UserResponse>('/auth', credentials);
-      return response.data;
+
+      // Set token in cookie
+      document.cookie = `token=${response.data.accessToken}; path=/; secure; samesite=strict`;
+
+      // Set token in axios default headers for subsequent requests
+      api.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${response.data.accessToken}`;
+
+      // Remove the token from the returned data since it's now in the cookie
+      const { accessToken, ...userData } = response.data;
+      return userData;
     } catch (error) {
       const axiosError = error as AxiosError<ApiError>;
       throw new Error(axiosError.response?.data?.message || 'Failed to login');
@@ -16,17 +28,10 @@ export class AuthService {
   }
 
   static logout(): void {
-    CookieService.deleteCookie('token');
+    // Clear cookie
+    document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+    // Clear axios header
+    delete api.defaults.headers.common['Authorization'];
   }
 }
-
-api.interceptors.response.use(
-  (response) => response,
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      AuthService.logout();
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  },
-);

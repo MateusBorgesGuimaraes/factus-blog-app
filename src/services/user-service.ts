@@ -19,7 +19,9 @@ export class UserService {
 
   static async uploadUserProfileImage(formData: FormData) {
     try {
-      const response = await api.post('/users/upload-profile', formData);
+      const response = await api.post('/users/upload-profile', formData, {
+        headers: {},
+      });
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError<ApiError>;

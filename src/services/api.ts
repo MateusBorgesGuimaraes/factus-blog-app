@@ -1,12 +1,6 @@
-import axios, {
-  AxiosInstance,
-  AxiosError,
-  InternalAxiosRequestConfig,
-  AxiosResponse,
-} from 'axios';
-import { ApiError } from '../types/api';
+import axios from 'axios';
 
-const api: AxiosInstance = axios.create({
+const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
   withCredentials: true,
@@ -15,36 +9,11 @@ const api: AxiosInstance = axios.create({
   },
 });
 
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.set('Authorization', `Bearer ${token}`);
-    }
-    return config;
-  },
-  (error: AxiosError) => Promise.reject(error),
-);
-
-api.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError<ApiError>) => {
-    if (error.response) {
-      const { status } = error.response;
-      switch (status) {
-        case 401:
-          // Lidar com erro de auth
-          break;
-        case 404:
-          // Lidar com  erro de not found
-          break;
-        case 500:
-          // Lidor com erro de servidor
-          break;
-      }
-    }
-    return Promise.reject(error);
-  },
-);
+api.interceptors.request.use((config) => {
+  if (config.data instanceof FormData) {
+    delete config.headers['Content-Type'];
+  }
+  return config;
+});
 
 export default api;

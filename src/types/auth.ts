@@ -9,4 +9,5 @@ export interface UserResponse {
   name: string;
   profilePicture: string;
   role: string;
+  accessToken: string;
 }

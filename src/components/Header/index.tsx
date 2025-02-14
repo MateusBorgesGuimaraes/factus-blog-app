@@ -11,12 +11,13 @@ import { MobileMenu } from '@/utils/icons-components/mobile-menu';
 import { Profile } from '../Profile';
 import { ArrowDownGreen } from '@/utils/icons-components/arrow-down-green';
 import { ArrowDownRed } from '@/utils/icons-components/arrow-down-red';
+import { useUserStore } from '@/store/user-store';
 export const Header = () => {
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
   const [openUserMenu, setOpenUserMenu] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState('');
-  const user = false;
+  const { user } = useUserStore();
   const pathname = usePathname();
 
   React.useEffect(() => {
@@ -109,12 +110,20 @@ export const Header = () => {
             >
               {pathname !== '/' ? (
                 <>
-                  <Profile color="#000" />
+                  <Profile
+                    name={user.name}
+                    imageUrl={user.profilePicture}
+                    color="#000"
+                  />
                   <ArrowDownRed />
                 </>
               ) : (
                 <>
-                  <Profile color="#fff" />
+                  <Profile
+                    name={user.name}
+                    imageUrl={user.profilePicture}
+                    color="#fff"
+                  />
                   <ArrowDownGreen />
                 </>
               )}

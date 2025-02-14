@@ -3,7 +3,9 @@ import { LoginCredentials, UserResponse } from '../types/auth';
 import { AuthService } from '@/services/auth-service';
 
 export const useAuth = () => {
-  const [user, setUser] = useState<UserResponse | null>(null);
+  const [user, setUser] = useState<Omit<UserResponse, 'accessToken'> | null>(
+    null,
+  );
 
   const login = useCallback(async (credentials: LoginCredentials) => {
     const userData = await AuthService.login(credentials);
@@ -11,8 +13,8 @@ export const useAuth = () => {
     return userData;
   }, []);
 
-  const logout = useCallback(async () => {
-    await AuthService.logout();
+  const logout = useCallback(() => {
+    AuthService.logout();
     setUser(null);
   }, []);
 
