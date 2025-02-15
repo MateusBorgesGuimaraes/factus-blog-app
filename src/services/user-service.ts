@@ -11,8 +11,7 @@ export class UserService {
     } catch (error) {
       const axiosError = error as AxiosError<ApiError>;
       throw new Error(
-        axiosError.response?.data?.message ||
-          'Falha ao retgistrar novo usuario',
+        axiosError.response?.data?.message || 'Falha ao registrar novo usuario',
       );
     }
   }

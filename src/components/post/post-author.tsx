@@ -1,10 +1,15 @@
 import styles from './styles.module.css';
 import { Profile } from '../Profile';
 
-export const PostAuthor = () => {
+export type PostAuthorProps = {
+  name: string;
+  imageUrl: string;
+};
+
+export const PostAuthor = ({ name, imageUrl }: PostAuthorProps) => {
   return (
     <div className={styles.profileContainer}>
-      <Profile />
+      <Profile name={name} imageUrl={imageUrl} />
     </div>
   );
 };

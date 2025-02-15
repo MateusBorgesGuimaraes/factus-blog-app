@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { Filter } from '@/components/Filter';
 import { Post } from '@/components/post';
 import { Pagination } from '@/components/Pagination';
+import { PostResponse, PostsFetchResponse } from '@/types/post';
+import { PostService } from '@/services/post-service';
 
 interface Post {
   id: number;
@@ -14,28 +16,33 @@ interface Post {
 }
 
 export const PostsSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState('ciencia');
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [posts, setPosts] = useState<PostsFetchResponse | null>(null);
+  const [filteredPosts, setFilteredPosts] = useState<PostResponse[]>([]);
+  const [actualPage, setActualPage] = useState(1);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const samplePosts = [
-        { id: 1, title: 'Post 1', category: 'tecnologia' },
-        { id: 2, title: 'Post 2', category: 'ciencia' },
-      ];
-      setPosts(samplePosts);
-    };
+      try {
+        const response = await PostService.getPostsWithPagination(1, 8);
+        const validResponse = Array.isArray(response) ? response[0] : response;
 
+        setPosts(validResponse);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
     fetchPosts();
-  }, []);
+  }, [actualPage]);
 
   useEffect(() => {
+    if (!posts) return;
+
     const filterPosts = () => {
       if (selectedCategory === 'all') {
-        setFilteredPosts(posts);
+        setFilteredPosts(posts.data);
       } else {
-        const filtered = posts.filter(
+        const filtered = posts.data.filter(
           (post) => post.category === selectedCategory,
         );
         setFilteredPosts(filtered);
@@ -60,62 +67,18 @@ export const PostsSection = () => {
         selectedCategory={selectedCategory}
       />
       <div className={styles.posts}>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>{/* <Post.Header.Buttons /> */}</Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
+        {filteredPosts.map((post) => (
+          <Post key={post.id}>
+            <Post.Header category={post.category} image={post.coverImage} />
+            <Post.Subinfos />
+            <Post.Title postID={post.id} title={post.title} />
+            <Post.Description />
+            <Post.Author
+              name={post.author.name}
+              imageUrl={post.author.profilePicture}
+            />
+          </Post>
+        ))}
       </div>
 
       <Pagination actualPage={1} totalPages={10} handlePageChange={() => {}} />

@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import EditorJS, { ToolConstructable } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
@@ -11,14 +17,13 @@ import Marker from '@editorjs/marker';
 import InlineCode from '@editorjs/inline-code';
 import Underline from '@editorjs/underline';
 
-export default function Editor() {
+const Editor = forwardRef<EditorJS | null>((_, ref) => {
   const editorRef = useRef<EditorJS | null>(null);
   const elementId = 'editorjs';
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-
     if (!editorRef.current && document.getElementById(elementId)) {
       editorRef.current = new EditorJS({
         holder: elementId,
@@ -56,15 +61,31 @@ export default function Editor() {
           underline: Underline as unknown as ToolConstructable,
         },
       });
+      if (typeof ref === 'function') {
+        ref(editorRef.current);
+      } else if (ref) {
+        ref.current = editorRef.current;
+      }
     }
 
     return () => {
       if (editorRef.current) {
         editorRef.current.destroy?.();
         editorRef.current = null;
+
+        // Clear the forwarded ref on cleanup
+        if (typeof ref === 'function') {
+          ref(null);
+        } else if (ref) {
+          ref.current = null;
+        }
       }
     };
-  }, [isClient]);
+  }, [isClient, ref]);
 
   return isClient ? <div id={elementId}></div> : null;
-}
+});
+
+Editor.displayName = 'Editor';
+
+export default Editor;

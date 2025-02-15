@@ -5,18 +5,43 @@ import styles from './styles.module.css';
 import { Post } from '@/components/post';
 import { PostHeader } from '@/components/post/post-header';
 import React from 'react';
+import { PostResponse } from '@/types/post';
+import { PostService } from '@/services/post-service';
+import formatLink from '@/functions/formatLink';
+import { PostViewer } from '@/components/PostViewer';
 
-export const PostContentPage = () => {
-  const [content, setContent] = React.useState('');
+interface PostProps {
+  id: string;
+}
 
-  const handleContentChange = (value: string) => {
-    setContent(value);
-    console.log(value);
-  };
+export const PostContentPage = ({ id }: PostProps) => {
+  const [content, setContent] = React.useState<PostResponse | null>(null);
+
+  React.useEffect(() => {
+    async function fetchContent() {
+      try {
+        const response = await PostService.getPostById(id);
+        setContent(response);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      }
+    }
+    if (id) fetchContent();
+  }, [id]);
+
+  if (!content) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className={styles.postContainer}>
       <div className={styles.postImage}>
-        <Image src="/images/news-test1.jpg" alt="" width={1904} height={640} />
+        <Image
+          src={formatLink('posts/cover', content?.coverImage)}
+          alt=""
+          width={1904}
+          height={640}
+        />
       </div>
 
       <div className={styles.post}>
@@ -32,7 +57,7 @@ export const PostContentPage = () => {
                   height={12}
                 />
               </span>
-              <p>Ciência</p>
+              <p>{content?.category}</p>
             </div>
             <button className={styles.favorite2}>
               <Image
@@ -44,20 +69,12 @@ export const PostContentPage = () => {
             </button>
           </div>
           <div className={styles.postInfos}>
-            <h1 className={styles.postTitle}>
-              A Revolução da Inteligência Artificial: Tecnologia que Redefine o
-              Futuro
-            </h1>
-            <p className={styles.postContent}>
-              A inteligência artificial está transformando o mundo como o
-              conhecemos, impactando desde a forma como trabalhamos até como
-              vivemos. A revolução da inteligência artificial vem se tornando
-              uma verdadeira revolução na era digital, permitindo a criação de
-              sistemas inteligentes que podem entender e responder aos nossos
-              desejos. Nesta postagem, vamos explorar a revolução da
-              inteligência artificial e como ela pode transformar o nosso
-              futuro.
-            </p>
+            <h1 className={styles.postTitle}>{content?.title}</h1>
+            <div className={styles.postContent}>
+              <PostViewer
+                data={content?.content ? JSON.parse(content.content) : null}
+              />
+            </div>
           </div>
         </div>
 

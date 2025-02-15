@@ -10,7 +10,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { CreateUser, userRoles } from '@/types/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createUserSchema } from '@/zod-schemas/create-user-schema';
-import { useApi } from '@/hooks/user-api';
 import { UserService } from '@/services/user-service';
 import { AuthService } from '@/services/auth-service';
 import { useRouter } from 'next/navigation';

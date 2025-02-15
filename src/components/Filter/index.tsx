@@ -20,11 +20,11 @@ interface Category {
 export const Filter = ({ onCategoryChange, selectedCategory }: FilterProps) => {
   const categories = [
     { id: 'all', label: 'Todos' },
-    { id: 'ciencia', label: 'Ciência' },
-    { id: 'tecnologia', label: 'Tecnologia' },
-    { id: 'filosofia', label: 'Filosofia' },
-    { id: 'programacao', label: 'Programação' },
     { id: 'livros', label: 'Livros' },
+    { id: 'ficcao', label: 'Ficição' },
+    { id: 'historia', label: 'Historia' },
+    { id: 'tecnologia', label: 'Tecnologia' },
+    { id: 'ciencia', label: 'Ciência' },
     { id: 'politica', label: 'Política' },
   ];
 

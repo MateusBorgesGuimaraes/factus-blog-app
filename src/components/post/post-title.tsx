@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import styles from './styles.module.css';
 
-export const PostTile = () => {
+interface PostTitleProps {
+  title: string;
+  postID: number;
+}
+
+export const PostTile = ({ title, postID }: PostTitleProps) => {
   return (
     <h2 className={styles.title}>
-      <Link href={'/post/2'}>
-        Olhos no Infinito: O Telescópio que Vai Revelar os Segredos do Cosmos
-      </Link>
+      <Link href={`/post/${postID}`}>{title}</Link>
     </h2>
   );
 };

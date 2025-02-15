@@ -1,9 +1,16 @@
 import { PostContentPage } from '@/components/pages/Post';
 
-export default async function PostPage() {
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function PostPage({ params }: Params) {
+  const { id } = await params;
   return (
     <section>
-      <PostContentPage />
+      <PostContentPage id={id} />
     </section>
   );
 }

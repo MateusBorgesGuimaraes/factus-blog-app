@@ -36,6 +36,10 @@
   margin-top: 24px;
 }
 
+.imageContainer {
+  max-width: 460px;
+}
+
 @media (width < 1060px) {
   .postsSalvosContainer {
     margin-top: 60px;

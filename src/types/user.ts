@@ -4,6 +4,10 @@ export interface User {
   email: string;
 }
 
+interface Author extends Omit<User, 'email'> {
+  profilePicture: string;
+}
+
 export interface CreateUser {
   name: string;
   email: string;
