@@ -1,16 +1,19 @@
-.select {
-  width: 100%;
-  box-sizing: border-box;
-  height: 40px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 0.5px solid var(--color-gray-200);
-  background: var(--color-gray-100);
-  font-size: 16px;
-  color: var(--color-gray-400);
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
 }
 
-.select option {
+.selectLabel {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.selectElement {
+  padding: 8px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
   color: var(--color-gray-400);
-  background: var(--color-gray-100);
 }

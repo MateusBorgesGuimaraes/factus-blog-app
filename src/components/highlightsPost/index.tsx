@@ -1,13 +1,46 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './styles.module.css';
 import { Profile } from '../Profile';
+import { PostResponse } from '@/types/post';
+import { useEffect, useState } from 'react';
+import { PostService } from '@/services/post-service';
+import formatLink from '@/functions/formatLink';
+import extractPlainText from '@/functions/extractPlainText';
+import cutText from '@/functions/cutText';
+import formatDate from '@/functions/formatDate';
+import calculateReadingTime from '@/functions/calculateReadingTime';
+import Link from 'next/link';
 
-export const HighlightsPost = () => {
+interface HighlightsPostProps {
+  id: string;
+}
+
+export const HighlightsPost = ({ id }: HighlightsPostProps) => {
+  const [post, setPost] = useState<PostResponse | null>(null);
+
+  useEffect(() => {
+    async function fetchContent() {
+      try {
+        const response = await PostService.getPostById(id);
+        setPost(response);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      }
+    }
+    if (id) fetchContent();
+  }, [id]);
+
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.postContainer}>
       <div className={styles.postImage}>
         <Image
-          src="/images/news-test2.jpg"
+          src={formatLink('posts/cover', post.coverImage)}
           alt="news"
           width={460}
           height={230}
@@ -15,23 +48,24 @@ export const HighlightsPost = () => {
       </div>
 
       <div className={styles.post}>
-        <Profile />
+        <Profile
+          name={post.author.name}
+          imageUrl={post.author.profilePicture}
+        />
 
         <div className={styles.postInfos}>
-          <h3 className={styles.postTitle}>
-            A Revolução da Inteligência Artificial: Tecnologia que Redefine o
-            Futuro
-          </h3>
+          <Link href={`/post/${id}`} className={styles.postLink}>
+            <h3 className={styles.postTitle}>{post.title}</h3>
+          </Link>
 
           <p className={styles.postDescription}>
-            A inteligência artificial está transformando o mundo como o
-            conhecemos, impactando desde a forma como trabalhamos até co...
+            {cutText(extractPlainText(post.content), 170)}
           </p>
         </div>
         <div className={styles.postSubInfos}>
-          <p>09 Jun 2024</p>
+          <p>{formatDate(post.createdAt)}</p>
           <span className={styles.dec}></span>
-          <p>10 min read</p>
+          <p>{calculateReadingTime(extractPlainText(post.content))} min read</p>
         </div>
       </div>
     </div>

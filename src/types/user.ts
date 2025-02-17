@@ -4,7 +4,7 @@ export interface User {
   email: string;
 }
 
-interface Author extends Omit<User, 'email'> {
+export interface Author extends Omit<User, 'email'> {
   profilePicture: string;
 }
 

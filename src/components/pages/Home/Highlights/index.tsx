@@ -11,8 +11,8 @@ export const Highlights = () => {
       />
 
       <div className={styles.postsHighlights}>
-        <HighlightsPost />
-        <HighlightsPost />
+        <HighlightsPost id="25" />
+        <HighlightsPost id="20" />
       </div>
     </section>
   );

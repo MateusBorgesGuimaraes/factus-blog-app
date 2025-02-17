@@ -5,6 +5,8 @@ import { Select } from '../formComponents/select';
 interface FilterProps {
   onCategoryChange: (category: string) => void;
   selectedCategory: string;
+  onSortChange: (order: 'desc' | 'asc') => void;
+  selectedSort: 'desc' | 'asc';
 }
 
 enum filters {
@@ -17,12 +19,17 @@ interface Category {
   label: string;
 }
 
-export const Filter = ({ onCategoryChange, selectedCategory }: FilterProps) => {
-  const categories = [
+export const Filter = ({
+  onCategoryChange,
+  selectedCategory,
+  onSortChange,
+  selectedSort,
+}: FilterProps) => {
+  const categories: Category[] = [
     { id: 'all', label: 'Todos' },
     { id: 'livros', label: 'Livros' },
-    { id: 'ficcao', label: 'Ficição' },
-    { id: 'historia', label: 'Historia' },
+    { id: 'ficcao', label: 'Ficção' },
+    { id: 'história', label: 'Historia' },
     { id: 'tecnologia', label: 'Tecnologia' },
     { id: 'ciencia', label: 'Ciência' },
     { id: 'politica', label: 'Política' },
@@ -45,7 +52,16 @@ export const Filter = ({ onCategoryChange, selectedCategory }: FilterProps) => {
       </div>
       <div className={styles.filterSort}>
         <span>Filtrar por:</span>
-        <Select label="opções" options={Object.values(filters)} name="filtro" />
+        <Select
+          label="opções"
+          name="filtro"
+          options={Object.values(filters)}
+          value={selectedSort === 'desc' ? filters.NEWEST : filters.OLDEST}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const value = e.target.value;
+            onSortChange(value === filters.NEWEST ? 'desc' : 'asc');
+          }}
+        />
       </div>
     </nav>
   );

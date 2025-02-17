@@ -8,52 +8,65 @@ import { Post } from '@/components/post';
 import { Pagination } from '@/components/Pagination';
 import { PostResponse, PostsFetchResponse } from '@/types/post';
 import { PostService } from '@/services/post-service';
-
-interface Post {
-  id: number;
-  title: string;
-  category: string;
-}
+import extractPlainText from '@/functions/extractPlainText';
+import { usePostsStore } from '@/store/post-store';
 
 export const PostsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [posts, setPosts] = useState<PostsFetchResponse | null>(null);
-  const [filteredPosts, setFilteredPosts] = useState<PostResponse[]>([]);
+  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
+  const [postsResponse, setPostsResponse] = useState<PostsFetchResponse | null>(
+    null,
+  );
   const [actualPage, setActualPage] = useState(1);
+
+  const { postsCache, setPostsCache } = usePostsStore();
+  const limit = 8;
+
+  const cacheKey = `${selectedCategory}_${actualPage}_${sortOrder}`;
 
   useEffect(() => {
     const fetchPosts = async () => {
+      if (postsCache[cacheKey]) {
+        setPostsResponse(postsCache[cacheKey]);
+        return;
+      }
       try {
-        const response = await PostService.getPostsWithPagination(1, 8);
+        const response = await PostService.getPostsWithPagination(
+          actualPage,
+          limit,
+          selectedCategory,
+          sortOrder,
+        );
         const validResponse = Array.isArray(response) ? response[0] : response;
-
-        setPosts(validResponse);
+        setPostsResponse(validResponse);
+        setPostsCache(cacheKey, validResponse);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
     };
+
     fetchPosts();
-  }, [actualPage]);
-
-  useEffect(() => {
-    if (!posts) return;
-
-    const filterPosts = () => {
-      if (selectedCategory === 'all') {
-        setFilteredPosts(posts.data);
-      } else {
-        const filtered = posts.data.filter(
-          (post) => post.category === selectedCategory,
-        );
-        setFilteredPosts(filtered);
-      }
-    };
-
-    filterPosts();
-  }, [selectedCategory, posts]);
+  }, [
+    selectedCategory,
+    actualPage,
+    sortOrder,
+    cacheKey,
+    postsCache,
+    setPostsCache,
+  ]);
 
   const handleCategoryChange = (category: string) => {
+    setActualPage(1); // reset to page 1 when category changes
     setSelectedCategory(category);
+  };
+
+  const handleSortChange = (order: 'desc' | 'asc') => {
+    setActualPage(1); // reset to page 1 when sort order changes
+    setSortOrder(order);
+  };
+
+  const handlePageChange = (page: number) => {
+    setActualPage(page);
   };
 
   return (
@@ -65,14 +78,16 @@ export const PostsSection = () => {
       <Filter
         onCategoryChange={handleCategoryChange}
         selectedCategory={selectedCategory}
+        onSortChange={handleSortChange}
+        selectedSort={sortOrder}
       />
       <div className={styles.posts}>
-        {filteredPosts.map((post) => (
+        {postsResponse?.data.map((post) => (
           <Post key={post.id}>
             <Post.Header category={post.category} image={post.coverImage} />
-            <Post.Subinfos />
+            <Post.Subinfos date={post.createdAt} text={post.content} />
             <Post.Title postID={post.id} title={post.title} />
-            <Post.Description />
+            <Post.Description text={extractPlainText(post.content)} />
             <Post.Author
               name={post.author.name}
               imageUrl={post.author.profilePicture}
@@ -81,7 +96,13 @@ export const PostsSection = () => {
         ))}
       </div>
 
-      <Pagination actualPage={1} totalPages={10} handlePageChange={() => {}} />
+      {postsResponse && (
+        <Pagination
+          actualPage={actualPage}
+          totalPages={postsResponse.meta.lastPage}
+          handlePageChange={handlePageChange}
+        />
+      )}
     </section>
   );
 };

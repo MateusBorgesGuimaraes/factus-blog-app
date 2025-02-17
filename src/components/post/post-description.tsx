@@ -1,11 +1,10 @@
+import cutText from '@/functions/cutText';
 import styles from './styles.module.css';
 
-export const PostDescription = () => {
-  return (
-    <p className={styles.description}>
-      Os mistérios do universo estão cada vez mais ao nosso alcance, graças ao
-      avanço das tecnologias de observação. construídos, capaz de revelar
-      detalhes surpreendentes so...
-    </p>
-  );
+interface PostDescriptionProps {
+  text: string;
+}
+
+export const PostDescription = ({ text }: PostDescriptionProps) => {
+  return <p className={styles.description}>{cutText(text, 170)}</p>;
 };

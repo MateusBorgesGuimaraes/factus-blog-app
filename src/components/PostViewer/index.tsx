@@ -3,20 +3,16 @@
 import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 
-// Import types only
 import type EditorJS from '@editorjs/editorjs';
 
 interface PostViewerProps {
-  data: any; // EditorJS output data
+  data: any;
 }
-
-// Create a wrapper component for EditorJS
 const EditorJSWrapper = ({ data }: PostViewerProps) => {
   const elementId = 'post-viewer';
   const editorRef = useRef<EditorJS | null>(null);
 
   useEffect(() => {
-    // Load editor and tools dynamically
     const initEditor = async () => {
       const EditorJS = (await import('@editorjs/editorjs')).default;
       const Header = (await import('@editorjs/header')).default;
@@ -52,7 +48,10 @@ const EditorJSWrapper = ({ data }: PostViewerProps) => {
     initEditor();
 
     return () => {
-      if (editorRef.current) {
+      if (
+        editorRef.current &&
+        typeof editorRef.current.destroy === 'function'
+      ) {
         editorRef.current.destroy();
         editorRef.current = null;
       }

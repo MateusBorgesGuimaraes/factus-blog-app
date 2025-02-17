@@ -51,11 +51,19 @@ export class PostService {
   static async getPostsWithPagination(
     page: number,
     limit: number,
+    category?: string,
+    order?: 'desc' | 'asc',
   ): Promise<PostsFetchResponse[]> {
     try {
-      const reponse = await api.get(`/posts?page=${page}&limit=${limit}`);
-
-      return reponse.data;
+      let url = `/posts?page=${page}&limit=${limit}`;
+      if (category && category !== 'all') {
+        url += `&category=${category}`;
+      }
+      if (order) {
+        url += `&order=${order}`;
+      }
+      const response = await api.get(url);
+      return response.data;
     } catch (error) {
       const axiosError = error as AxiosError<ApiError>;
       throw new Error(

@@ -1,20 +1,36 @@
+import React from 'react';
 import styles from './styles.module.css';
 
-interface SelectProps {
+export interface SelectProps {
   label: string;
   name: string;
   options: string[];
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export const Select = ({ label, name, options }: SelectProps) => {
+export const Select = ({
+  label,
+  name,
+  options,
+  value,
+  onChange,
+}: SelectProps) => {
   return (
-    <select name={name} className={styles.select}>
-      <option value="">{label}</option>
-      {options.map((option) => (
-        <option className={styles.decorated} key={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className={styles.selectContainer}>
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        className={styles.selectElement}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };

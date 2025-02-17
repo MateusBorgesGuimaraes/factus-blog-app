@@ -90,7 +90,7 @@ export const PostContentPage = ({ id }: PostProps) => {
           <div className={styles.relatedPostsContainer}>
             <h2 className={styles.subTitle}>Parecidas com:</h2>
             <div className={styles.relatedPosts}>
-              <Post>
+              {/* <Post>
                 <PostHeader />
                 <Post.Subinfos />
                 <Post.Title />
@@ -106,7 +106,7 @@ export const PostContentPage = ({ id }: PostProps) => {
                 <PostHeader />
                 <Post.Subinfos />
                 <Post.Title />
-              </Post>
+              </Post> */}
             </div>
           </div>
         </div>
