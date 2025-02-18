@@ -12,13 +12,25 @@ import { Profile } from '../Profile';
 import { ArrowDownGreen } from '@/utils/icons-components/arrow-down-green';
 import { ArrowDownRed } from '@/utils/icons-components/arrow-down-red';
 import { useUserStore } from '@/store/user-store';
+import { SearchResult } from '../search-result';
+import { useSearch } from '@/hooks/use-search';
+import { PostService } from '@/services/post-service';
+import { set } from 'react-hook-form';
+import { SearchIcon } from '@/utils/icons-components/search-icon';
 export const Header = () => {
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
   const [openUserMenu, setOpenUserMenu] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState('');
+  const { search, setSearch, result, loading, error } = useSearch({
+    searchFunction: PostService.getPostsWithPagination,
+  });
   const { user } = useUserStore();
   const pathname = usePathname();
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   React.useEffect(() => {
     setIsHome(pathname === '/');
@@ -47,15 +59,15 @@ export const Header = () => {
             isHome ? '' : styles.reverse
           }`}
         >
-          <input type="text" placeholder="buscar post..." />
-          <button>
-            <Image
-              src={'/icons/search-white-icon.svg'}
-              alt="logo"
-              width={20}
-              height={20}
-            />
+          <input
+            onChange={handleSearch}
+            type="text"
+            placeholder="buscar post..."
+          />
+          <button className={`${isHome ? '' : styles.searchDaker}`}>
+            <SearchIcon />
           </button>
+          {result && <SearchResult onClick={setSearch} posts={result.data} />}
         </div>
 
         {!user ? (
@@ -78,7 +90,11 @@ export const Header = () => {
                 <Link href={'/entrar'}>Entrar</Link>
                 <Link href={'/cadastrar'}>Cadastrar</Link>
                 <div className={styles.searchBarContainerMobile}>
-                  <input type="text" placeholder="buscar post..." />
+                  <input
+                    onChange={handleSearch}
+                    type="text"
+                    placeholder="buscar post..."
+                  />
                   <button>
                     <Image
                       src={'/icons/search-white-icon.svg'}
@@ -87,6 +103,9 @@ export const Header = () => {
                       height={20}
                     />
                   </button>
+                  {result && (
+                    <SearchResult onClick={setSearch} posts={result.data} />
+                  )}
                 </div>
               </div>
             </div>
@@ -138,17 +157,6 @@ export const Header = () => {
                   Perfil <span></span>
                 </Link>
 
-                <div className={styles.searchBarContainerUserProfile}>
-                  <input type="text" placeholder="buscar post..." />
-                  <button className={styles.searchButtonUserMenu}>
-                    <Image
-                      src={'/icons/search-white-icon.svg'}
-                      alt="logo"
-                      width={20}
-                      height={20}
-                    />
-                  </button>
-                </div>
                 <button className={styles.logout}>
                   Sair <span></span>
                 </button>

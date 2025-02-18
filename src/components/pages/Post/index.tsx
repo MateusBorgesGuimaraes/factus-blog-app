@@ -16,6 +16,7 @@ interface PostProps {
 
 export const PostContentPage = ({ id }: PostProps) => {
   const [content, setContent] = React.useState<PostResponse | null>(null);
+  const [releatedPosts, setReleatedPosts] = React.useState<PostResponse[]>([]);
 
   React.useEffect(() => {
     async function fetchContent() {
@@ -27,6 +28,18 @@ export const PostContentPage = ({ id }: PostProps) => {
       }
     }
     if (id) fetchContent();
+  }, [id]);
+
+  React.useEffect(() => {
+    async function fetchReleatedPosts() {
+      try {
+        const response = await PostService.getPostsReleated(id);
+        setReleatedPosts(response);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      }
+    }
+    if (id) fetchReleatedPosts();
   }, [id]);
 
   if (!content) {
@@ -90,23 +103,16 @@ export const PostContentPage = ({ id }: PostProps) => {
           <div className={styles.relatedPostsContainer}>
             <h2 className={styles.subTitle}>Parecidas com:</h2>
             <div className={styles.relatedPosts}>
-              {/* <Post>
-                <PostHeader />
-                <Post.Subinfos />
-                <Post.Title />
-              </Post>
-
-              <Post>
-                <PostHeader />
-                <Post.Subinfos />
-                <Post.Title />
-              </Post>
-
-              <Post>
-                <PostHeader />
-                <Post.Subinfos />
-                <Post.Title />
-              </Post> */}
+              {releatedPosts.map((post) => (
+                <Post key={post.id}>
+                  <PostHeader
+                    category={post.category}
+                    image={post.coverImage}
+                  />
+                  <Post.Subinfos date={post.createdAt} text={post.content} />
+                  <Post.Title postID={post.id} title={post.title} />
+                </Post>
+              ))}
             </div>
           </div>
         </div>

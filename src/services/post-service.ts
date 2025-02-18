@@ -53,7 +53,8 @@ export class PostService {
     limit: number,
     category?: string,
     order?: 'desc' | 'asc',
-  ): Promise<PostsFetchResponse[]> {
+    search?: string,
+  ): Promise<PostsFetchResponse> {
     try {
       let url = `/posts?page=${page}&limit=${limit}`;
       if (category && category !== 'all') {
@@ -62,12 +63,28 @@ export class PostService {
       if (order) {
         url += `&order=${order}`;
       }
+      if (search) {
+        url += `&search=${search}`;
+      }
       const response = await api.get(url);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError<ApiError>;
       throw new Error(
         axiosError.response?.data?.message || 'Falha ao pegar posts',
+      );
+    }
+  }
+
+  static async getPostsReleated(postID: string): Promise<PostResponse[]> {
+    try {
+      const response = await api.get(`/posts/${postID}/recommendations`);
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      throw new Error(
+        axiosError.response?.data?.message ||
+          'Falha ao pegar posts relacionados',
       );
     }
   }
