@@ -13,11 +13,12 @@ import { LoginUser, loginUserSchema } from '@/zod-schemas/login-user-schema';
 import { AuthService } from '@/services/auth-service';
 import { userRoles } from '@/types/user';
 import { ErrorForm } from '@/components/formComponents/error';
+import { UserService } from '@/services/user-service';
 
 export const Entrar = () => {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
-  const { setUser } = useUserStore();
+  const { setUser, user } = useUserStore();
 
   const methods = useForm<LoginUser>({
     resolver: zodResolver(loginUserSchema),
@@ -25,10 +26,15 @@ export const Entrar = () => {
 
   const onSubmit = async (data: LoginUser) => {
     try {
+      let savedPosts;
       const loginResponse = await AuthService.login({
         email: data.email,
         password: data.password,
       });
+
+      if (loginResponse) {
+        savedPosts = await UserService.getPostsSavedByUser();
+      }
 
       const userNew = {
         id: loginResponse.id,
@@ -36,7 +42,9 @@ export const Entrar = () => {
         email: loginResponse.email,
         role: loginResponse.role as userRoles,
         profilePicture: loginResponse.profilePicture,
+        savedPosts: savedPosts || null,
       };
+
       setUser(userNew);
       router.push('/');
     } catch (error) {

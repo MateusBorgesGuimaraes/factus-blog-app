@@ -55,6 +55,7 @@ export const Cadastrar = () => {
             email: loginResponse.email,
             role: loginResponse.role as userRoles,
             profilePicture: uploadResponse.profilePicture,
+            savedPosts: null,
           };
           setUser(userNew);
         } catch (uploadError) {

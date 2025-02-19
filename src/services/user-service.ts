@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import api from './api';
 import { CreateUser, User } from '../types/user';
 import { ApiResponse, ApiError } from '../types/api';
+import { PostResponse, PostsFetchResponse } from '@/types/post';
 
 export class UserService {
   static async createUser(user: Omit<CreateUser, 'profilePicture'>) {
@@ -51,6 +52,42 @@ export class UserService {
       const axiosError = error as AxiosError<ApiError>;
       throw new Error(
         axiosError.response?.data?.message || 'Falha ao pegar usuario',
+      );
+    }
+  }
+
+  static async getPostsSavedByUser(): Promise<PostsFetchResponse> {
+    try {
+      const response = await api.get(`/users/saved-posts`);
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      throw new Error(
+        axiosError.response?.data?.message || 'Falha ao pegar usuario',
+      );
+    }
+  }
+
+  static async savePost(postId: number) {
+    try {
+      await api.post(`/users/saved-posts/${postId}`);
+      return true;
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      throw new Error(
+        axiosError.response?.data?.message || 'Falha ao salvar post',
+      );
+    }
+  }
+
+  static async removePostFromSaved(postId: number) {
+    try {
+      await api.delete(`/users/saved-posts/${postId}`);
+      return true;
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      throw new Error(
+        axiosError.response?.data?.message || 'Falha ao remover post',
       );
     }
   }
