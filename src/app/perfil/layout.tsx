@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { useUserStore } from '@/store/user-store';
 import formatLink from '@/functions/formatLink';
+import { AuthService } from '@/services/auth-service';
+import { usePostsStore } from '@/store/post-store';
 
 export default function PerfilLayout({
   children,
@@ -14,7 +16,7 @@ export default function PerfilLayout({
   children: React.ReactNode;
 }>) {
   const [path, setPath] = React.useState('');
-  const { user } = useUserStore();
+  const { user, removeUser } = useUserStore();
   const pathname = usePathname();
 
   React.useEffect(() => {
@@ -23,6 +25,12 @@ export default function PerfilLayout({
   if (!user) {
     return null;
   }
+  const handleLogout = () => {
+    removeUser();
+    AuthService.logout();
+    window.location.href = '/';
+  };
+
   return (
     <section className={styles.perfilContainer}>
       <div className={`${styles.perfilBox}`}>
@@ -69,7 +77,7 @@ export default function PerfilLayout({
             </Link>
           </li>
           <li>
-            <button>
+            <button onClick={handleLogout}>
               <Image
                 src="/icons/logout-icon.svg"
                 alt=""

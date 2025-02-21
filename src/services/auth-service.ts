@@ -10,15 +10,12 @@ export class AuthService {
     try {
       const response = await api.post<UserResponse>('/auth', credentials);
 
-      // Set token in cookie
       document.cookie = `token=${response.data.accessToken}; path=/; secure; samesite=strict`;
 
-      // Set token in axios default headers for subsequent requests
       api.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${response.data.accessToken}`;
 
-      // Remove the token from the returned data since it's now in the cookie
       const { accessToken, ...userData } = response.data;
       return userData;
     } catch (error) {
@@ -28,10 +25,8 @@ export class AuthService {
   }
 
   static logout(): void {
-    // Clear cookie
     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
-    // Clear axios header
     delete api.defaults.headers.common['Authorization'];
   }
 }

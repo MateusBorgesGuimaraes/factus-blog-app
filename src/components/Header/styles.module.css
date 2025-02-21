@@ -58,12 +58,17 @@
 .searchBarContainerMobile input {
   height: 100%;
   width: 100%;
+  color: var(--color-white);
   border: none;
   background: none;
   font-size: 16px;
   font-weight: 400;
   padding-inline: 8px;
   outline: none;
+}
+
+.searchBarContainer input.inputDaker {
+  color: var(--color-gray-400);
 }
 
 .searchBarContainer button,

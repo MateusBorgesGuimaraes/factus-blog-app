@@ -17,6 +17,7 @@ import { useSearch } from '@/hooks/use-search';
 import { PostService } from '@/services/post-service';
 import { set } from 'react-hook-form';
 import { SearchIcon } from '@/utils/icons-components/search-icon';
+import { AuthService } from '@/services/auth-service';
 export const Header = () => {
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
@@ -25,11 +26,17 @@ export const Header = () => {
   const { search, setSearch, result, loading, error } = useSearch({
     searchFunction: PostService.getPostsWithPagination,
   });
-  const { user } = useUserStore();
+  const { user, removeUser } = useUserStore();
   const pathname = usePathname();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+  };
+
+  const handleLogout = () => {
+    removeUser();
+    AuthService.logout();
+    window.location.href = '/';
   };
 
   React.useEffect(() => {
@@ -60,6 +67,7 @@ export const Header = () => {
           }`}
         >
           <input
+            className={`${isHome ? '' : styles.inputDaker}`}
             onChange={handleSearch}
             type="text"
             placeholder="buscar post..."
@@ -157,7 +165,7 @@ export const Header = () => {
                   Perfil <span></span>
                 </Link>
 
-                <button className={styles.logout}>
+                <button onClick={handleLogout} className={styles.logout}>
                   Sair <span></span>
                 </button>
               </div>

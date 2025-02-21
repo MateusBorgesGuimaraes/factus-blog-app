@@ -43,6 +43,7 @@ export const Entrar = () => {
         role: loginResponse.role as userRoles,
         profilePicture: loginResponse.profilePicture,
         savedPosts: savedPosts || null,
+        bloggerPosts: null,
       };
 
       setUser(userNew);

@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import api from './api';
 import { CreateUser, User } from '../types/user';
 import { ApiResponse, ApiError } from '../types/api';
-import { PostResponse, PostsFetchResponse } from '@/types/post';
+import { PostsFetchResponse } from '@/types/post';
 
 export class UserService {
   static async createUser(user: Omit<CreateUser, 'profilePicture'>) {
@@ -88,6 +88,18 @@ export class UserService {
       const axiosError = error as AxiosError<ApiError>;
       throw new Error(
         axiosError.response?.data?.message || 'Falha ao remover post',
+      );
+    }
+  }
+
+  static async getAuthorPosts(): Promise<PostsFetchResponse> {
+    try {
+      const response = await api.get('/users/blogger/posts');
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      throw new Error(
+        axiosError.response?.data?.message || 'Falha ao pegar posts do autor',
       );
     }
   }

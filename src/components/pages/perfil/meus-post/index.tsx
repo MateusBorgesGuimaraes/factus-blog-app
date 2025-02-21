@@ -2,95 +2,51 @@
 
 import { Post } from '@/components/post';
 import styles from '../posts-salvos/styles.module.css';
-import { Pagination } from '@/components/Pagination';
+import extractPlainText from '@/functions/extractPlainText';
+import { useUserStore } from '@/store/user-store';
+import { useEffect } from 'react';
+import { UserService } from '@/services/user-service';
 
 export const MeusPost = () => {
+  const { user, setBloggerPosts } = useUserStore();
+
+  useEffect(() => {
+    if (!user?.bloggerPosts?.data) {
+      async function fetchPosts() {
+        const posts = await UserService.getAuthorPosts();
+        setBloggerPosts(posts);
+      }
+      fetchPosts();
+    }
+  }, [user]);
+
+  function handleRemovePost(arg0: string): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <section className={styles.postsSalvosContainer}>
       <h1 className={styles.title}>Meus Posts</h1>
       <div className={styles.posts}>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
-        <Post>
-          <Post.Header>
-            <Post.Header.Buttons.ButtonRemove />
-            <Post.Header.Buttons.ButttonEdit />
-          </Post.Header>
-          <Post.Subinfos />
-          <Post.Title />
-          <Post.Description />
-          <Post.Author />
-        </Post>
+        {user?.bloggerPosts?.data.length !== undefined &&
+          user?.bloggerPosts?.data.length > 0 &&
+          user.bloggerPosts.data.map((post) => (
+            <Post key={post.id}>
+              <Post.Header category={post.category} image={post.coverImage}>
+                <Post.Header.Buttons.ButtonRemove
+                  onClick={() => handleRemovePost(String(post.id))}
+                />
+              </Post.Header>
+              <Post.Subinfos date={post.createdAt} text={post.content} />
+              <Post.Title postID={post.id} title={post.title} />
+              <Post.Description text={extractPlainText(post.content)} />
+              <Post.Author
+                name={post.author.name}
+                imageUrl={post.author.profilePicture}
+              />
+            </Post>
+          ))}
       </div>
-      <Pagination actualPage={1} totalPages={10} handlePageChange={() => {}} />
     </section>
   );
 };

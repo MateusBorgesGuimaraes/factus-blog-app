@@ -92,11 +92,6 @@ export const CriarPost = () => {
             {errors.title && <ErrorForm error={errors.title.message} />}
           </div>
 
-          {/* <div>
-            <Input label="Autor" name="author" type="text" />
-            {errors.author && <ErrorForm error={errors.author.message} />}
-          </div> */}
-
           <div>
             <SelectIntegrate
               label="Categoria"

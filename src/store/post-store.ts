@@ -1,4 +1,3 @@
-// /stores/usePostsStore.ts
 import { create } from 'zustand';
 import { PostsFetchResponse } from '@/types/post';
 

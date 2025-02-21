@@ -17,16 +17,18 @@ export const SelectIntegrate = ({
   const { register } = useFormContext();
 
   return (
-    <select
-      className={styles.select}
-      {...register(name, { required: required })}
-    >
-      <option value="">{label}</option>
-      {options.map((option) => (
-        <option className={styles.decorated} key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className={styles.selectContainer}>
+      <select
+        className={styles.selectElement}
+        {...register(name, { required: required })}
+      >
+        <option value="">{label}</option>
+        {options.map((option) => (
+          <option className={styles.decorated} key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
