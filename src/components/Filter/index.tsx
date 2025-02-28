@@ -53,7 +53,6 @@ export const Filter = ({
       <div className={styles.filterSort}>
         <span>Filtrar por:</span>
         <Select
-          label="opções"
           name="filtro"
           options={Object.values(filters)}
           value={selectedSort === 'desc' ? filters.NEWEST : filters.OLDEST}

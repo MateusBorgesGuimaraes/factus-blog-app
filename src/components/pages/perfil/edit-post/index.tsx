@@ -28,7 +28,7 @@ export const EditarPost = () => {
         <Input label="Titulo" name="titulo" type="text" />
         <Input label="Autor" name="autor" type="text" />
         <Select
-          label="Categoria"
+          // label="Categoria"
           name="categoria"
           options={Object.values(categories)}
         />

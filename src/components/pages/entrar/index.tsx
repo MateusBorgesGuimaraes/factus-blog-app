@@ -17,8 +17,10 @@ import { UserService } from '@/services/user-service';
 
 export const Entrar = () => {
   const router = useRouter();
-  const [error, setError] = React.useState<string | null>(null);
-  const { setUser, user } = useUserStore();
+
+  //aq pode dar erro
+  const [error] = React.useState<string | null>(null);
+  const { setUser } = useUserStore();
 
   const methods = useForm<LoginUser>({
     resolver: zodResolver(loginUserSchema),
@@ -42,7 +44,7 @@ export const Entrar = () => {
         email: loginResponse.email,
         role: loginResponse.role as userRoles,
         profilePicture: loginResponse.profilePicture,
-        savedPosts: savedPosts || null,
+        savedPosts: savedPosts ? savedPosts : null,
         bloggerPosts: null,
       };
 

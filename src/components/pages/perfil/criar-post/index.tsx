@@ -4,7 +4,6 @@ import { Input } from '@/components/formComponents/input';
 import styles from './styles.module.css';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/formComponents/button';
-
 import { useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -17,6 +16,9 @@ import { ErrorForm } from '@/components/formComponents/error';
 import { ImageInput } from '@/components/formComponents/image-input';
 import { SelectIntegrate } from '@/components/formComponents/selectIntegrate';
 import { PostService } from '@/services/post-service';
+import { useUserStore } from '@/store/user-store';
+import { UserService } from '@/services/user-service';
+import { useRouter } from 'next/navigation';
 
 const Editor = dynamic(() => import('../../../Editor/Editor'), {
   ssr: false,
@@ -33,7 +35,9 @@ export enum Categories {
 }
 
 export const CriarPost = () => {
+  const router = useRouter();
   const editorRef = useRef<EditorJS | null>(null);
+  const { setBloggerPosts } = useUserStore();
 
   const methods = useForm<CreatePostFormData>({
     resolver: zodResolver(createPostSchema),
@@ -73,6 +77,18 @@ export const CriarPost = () => {
           console.error('Error uploading cover image:', error);
         }
       }
+
+      try {
+        const bloggerPosts = await UserService.getAuthorPosts();
+
+        if (bloggerPosts) {
+          setBloggerPosts(bloggerPosts);
+        }
+      } catch (error) {
+        console.error('Error to geting blogger posts:', error);
+      }
+
+      router.push('/perfil/meus-posts');
     } catch (error) {
       console.error('Error submitting post:', error);
     }

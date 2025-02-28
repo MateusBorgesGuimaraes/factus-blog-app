@@ -103,4 +103,16 @@ export class UserService {
       );
     }
   }
+
+  static async deleteBloggerPost(postId: number) {
+    try {
+      await api.delete(`/users/blogger-post/${postId}`);
+      return true;
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      throw new Error(
+        axiosError.response?.data?.message || 'Falha ao deletar post',
+      );
+    }
+  }
 }

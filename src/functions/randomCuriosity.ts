@@ -59,7 +59,7 @@ const curiosity = [
 ];
 
 export default function ramdomCuriosity() {
-  let indexes = [] as number[];
+  const indexes = [] as number[];
 
   while (indexes.length < 7) {
     const randomIndex = Math.floor(Math.random() * curiosity.length);

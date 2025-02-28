@@ -15,6 +15,7 @@ export function useApi<T>(
   const [loading, setLoading] = useState<boolean>(false);
 
   const execute = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (...args: any[]) => {
       try {
         setLoading(true);

@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import styles from './styles.module.css';
-import { Profile } from '../Profile';
 import { PostHeader } from './post-header';
 import { PostSubInfos } from './post-subinfos';
 import { PostTile } from './post-title';

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Filter } from '@/components/Filter';
 import { Post } from '@/components/post';
 import { Pagination } from '@/components/Pagination';
-import { PostResponse, PostsFetchResponse } from '@/types/post';
+import { PostsFetchResponse } from '@/types/post';
 import { PostService } from '@/services/post-service';
 import extractPlainText from '@/functions/extractPlainText';
 import { usePostsStore } from '@/store/post-store';

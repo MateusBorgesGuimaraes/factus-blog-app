@@ -1,4 +1,3 @@
-import { create } from 'zustand';
 import { Categories } from '@/components/pages/perfil/criar-post';
 import { Author } from './user';
 

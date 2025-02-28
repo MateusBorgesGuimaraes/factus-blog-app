@@ -6,8 +6,10 @@ import dynamic from 'next/dynamic';
 import type EditorJS from '@editorjs/editorjs';
 
 interface PostViewerProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
 }
+
 const EditorJSWrapper = ({ data }: PostViewerProps) => {
   const elementId = 'post-viewer';
   const editorRef = useRef<EditorJS | null>(null);

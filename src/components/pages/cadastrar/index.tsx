@@ -18,8 +18,9 @@ import { ErrorForm } from '@/components/formComponents/error';
 
 export const Cadastrar = () => {
   const router = useRouter();
-  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
-  const [error, setError] = React.useState<string | null>(null);
+  //aq pode dar erro
+  const [previewUrl] = React.useState<string | null>(null);
+  const [error] = React.useState<string | null>(null);
   const { setUser } = useUserStore();
 
   const methods = useForm<CreateUser>({

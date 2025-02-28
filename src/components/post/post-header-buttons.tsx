@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import styles from './styles.module.css';
 import { PostHeaderButtonEdit } from './post-header-button-edit';
 import { PostHeaderButtonRemove } from './post-header-button-remove';
 

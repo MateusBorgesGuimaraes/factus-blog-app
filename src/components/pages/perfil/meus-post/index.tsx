@@ -8,7 +8,14 @@ import { useEffect } from 'react';
 import { UserService } from '@/services/user-service';
 
 export const MeusPost = () => {
-  const { user, setBloggerPosts } = useUserStore();
+  const { user, setBloggerPosts, removePostFromBloggerPosts } = useUserStore();
+
+  const handleRemovePost = async (postID: string) => {
+    const response = await UserService.deleteBloggerPost(Number(postID));
+    if (response) {
+      removePostFromBloggerPosts(postID);
+    }
+  };
 
   useEffect(() => {
     if (!user?.bloggerPosts?.data) {
@@ -18,11 +25,7 @@ export const MeusPost = () => {
       }
       fetchPosts();
     }
-  }, [user]);
-
-  function handleRemovePost(arg0: string): void {
-    throw new Error('Function not implemented.');
-  }
+  }, [user, setBloggerPosts]);
 
   return (
     <section className={styles.postsSalvosContainer}>

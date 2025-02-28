@@ -26,13 +26,13 @@ export const Hero = () => {
         </div>
         <div className={styles.descriptionContainer}>
           <p>
-            "Bem-vindo ao nosso blog, um espaço dedicado a compartilhar ideias,
-            explorar o universo da tecnologia, expandir horizontes com
+            &ldquo;Bem-vindo ao nosso blog, um espaço dedicado a compartilhar
+            ideias, explorar o universo da tecnologia, expandir horizontes com
             conhecimento e ciência, mergulhar no entretenimento, apreciar a
             leitura, refletir sobre filosofia e debater os caminhos da política.
             Aqui, cada post é um convite para descobrir, aprender e se inspirar.
             Prepare-se para uma jornada de pensamentos e histórias que conectam
-            curiosidade e criatividade!"
+            curiosidade e criatividade!&rdquo;
           </p>
         </div>
       </div>

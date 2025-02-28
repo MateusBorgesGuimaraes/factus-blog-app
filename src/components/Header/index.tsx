@@ -15,7 +15,6 @@ import { useUserStore } from '@/store/user-store';
 import { SearchResult } from '../search-result';
 import { useSearch } from '@/hooks/use-search';
 import { PostService } from '@/services/post-service';
-import { set } from 'react-hook-form';
 import { SearchIcon } from '@/utils/icons-components/search-icon';
 import { AuthService } from '@/services/auth-service';
 export const Header = () => {
@@ -23,7 +22,7 @@ export const Header = () => {
   const [isHome, setIsHome] = React.useState(true);
   const [openUserMenu, setOpenUserMenu] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState('');
-  const { search, setSearch, result, loading, error } = useSearch({
+  const { setSearch, result } = useSearch({
     searchFunction: PostService.getPostsWithPagination,
   });
   const { user, removeUser } = useUserStore();

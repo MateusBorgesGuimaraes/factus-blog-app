@@ -9,6 +9,8 @@ import { PostResponse } from '@/types/post';
 import { PostService } from '@/services/post-service';
 import formatLink from '@/functions/formatLink';
 import { PostViewer } from '@/components/PostViewer';
+import { useUserStore } from '@/store/user-store';
+import { UserService } from '@/services/user-service';
 
 interface PostProps {
   id: string;
@@ -17,6 +19,20 @@ interface PostProps {
 export const PostContentPage = ({ id }: PostProps) => {
   const [content, setContent] = React.useState<PostResponse | null>(null);
   const [releatedPosts, setReleatedPosts] = React.useState<PostResponse[]>([]);
+  const { user, addPostToSaved, removePostFromSaved } = useUserStore();
+
+  const handleAddPostToSaved = async (postID: string) => {
+    const response = await UserService.savePost(Number(postID));
+    if (response && user && content) addPostToSaved(content);
+  };
+
+  const handleRemovePostFromSaved = async (postID: string) => {
+    const response = await UserService.removePostFromSaved(Number(postID));
+    if (response && user && content) removePostFromSaved(postID);
+  };
+
+  const isPostSaved = () =>
+    user?.savedPosts?.data.some((post) => post.id === Number(id));
 
   React.useEffect(() => {
     async function fetchContent() {
@@ -72,14 +88,32 @@ export const PostContentPage = ({ id }: PostProps) => {
               </span>
               <p>{content?.category}</p>
             </div>
-            <button className={styles.favorite2}>
-              <Image
-                src="/icons/favorite-post-icon.svg"
-                alt=""
-                width={32}
-                height={32}
-              />
-            </button>
+            {user &&
+              (isPostSaved() ? (
+                <button
+                  onClick={() => handleRemovePostFromSaved(id)}
+                  className={styles.favorite2}
+                >
+                  <Image
+                    src="/icons/unfavorite-post-icon.svg"
+                    alt=""
+                    width={32}
+                    height={32}
+                  />
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleAddPostToSaved(id)}
+                  className={styles.favorite2}
+                >
+                  <Image
+                    src="/icons/favorite-post-icon.svg"
+                    alt=""
+                    width={32}
+                    height={32}
+                  />
+                </button>
+              ))}
           </div>
           <div className={styles.postInfos}>
             <h1 className={styles.postTitle}>{content?.title}</h1>
@@ -92,14 +126,33 @@ export const PostContentPage = ({ id }: PostProps) => {
         </div>
 
         <div className={styles.col2}>
-          <button className={styles.favorite}>
-            <Image
-              src="/icons/favorite-post-icon.svg"
-              alt=""
-              width={32}
-              height={32}
-            />
-          </button>
+          {user &&
+            (isPostSaved() ? (
+              <button
+                onClick={() => handleRemovePostFromSaved(id)}
+                className={styles.favorite}
+              >
+                <Image
+                  src="/icons/unfavorite-post-icon.svg"
+                  alt=""
+                  width={32}
+                  height={32}
+                />
+              </button>
+            ) : (
+              <button
+                onClick={() => handleAddPostToSaved(id)}
+                className={styles.favorite}
+              >
+                <Image
+                  src="/icons/favorite-post-icon.svg"
+                  alt=""
+                  width={32}
+                  height={32}
+                />
+              </button>
+            ))}
+
           <div className={styles.relatedPostsContainer}>
             <h2 className={styles.subTitle}>Parecidas com:</h2>
             <div className={styles.relatedPosts}>
